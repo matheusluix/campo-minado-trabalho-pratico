@@ -91,4 +91,4 @@ Considerações Finais
 Este jogo utiliza alocação dinâmica de memória para as matrizes que são vetores de ponteiros, garantindo que o jogo possa ser executado em campos de diferentes tamanhos. É importante lembrar de liberar a memória alocada após o uso para evitar vazamentos de memória.
 
 GitHub: https://github.com/matheusluix/campo-minado-trabalho-pratico/tree/master
-linde
+Linkedln: https://www.linkedin.com/posts/matheus-luiz-792674155_link-do-reposit%C3%B3rio-no-github-referente-ao-activity-7253780539348807680-c3C9?utm_source=share&utm_medium=member_desktop
