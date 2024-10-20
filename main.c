@@ -152,7 +152,7 @@ int verificaVitoriaDerrota(int ordemMatriz, char **matrizVisivel, int **matrizBo
 
     for(int contLinha = 0; contLinha < ordemMatriz; contLinha++){
         for(int contColuna = 0; contColuna < ordemMatriz; contColuna++){
-            if(matrizVisivel[contLinha][contLinha] == 'X' && matrizBomba[contLinha][contColuna] == 0){
+            if(matrizVisivel[contLinha][contColuna] == 'X' && matrizBomba[contLinha][contColuna] == 0){
                 quantidadeX++;
             }
         }
@@ -181,7 +181,7 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
                 printf("Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) \n");
             }
 
-        } while (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 1 && matrizVisivel[coordenadaLinha][coordenadaColuna] == 'A');
+        } while (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 0 && matrizVisivel[coordenadaLinha][coordenadaColuna] != 'X');
 
         matrizVisivel[coordenadaLinha][coordenadaColuna] = '0' + quantidadeBombasVizinhanca(coordenadaLinha, coordenadaColuna, ordemMatriz, matrizBomba);
 
@@ -212,7 +212,7 @@ void imprimeMatrizBomba(int ordemMatriz, int **matrizBomba){
     for (int contL = 0; contL < ordemMatriz; contL++) {
         printf("%02d| ", contL + 1); // Índice da linha
         for (int contC = 0; contC < ordemMatriz; contC++) {
-                printf("%c | ", matrizBomba[contL][contC]);
+                printf("%d | ", matrizBomba[contL][contC]);
         }
         printf("\n");
     }
@@ -242,6 +242,8 @@ int main(void){
     inicializaMatrizVisivel(ordemMatriz, matrizVisivel);
 
     jogar(ordemMatriz, matrizVisivel, matrizBomba);
+
+    imprimeMatrizBomba(ordemMatriz, matrizBomba);
 
     for(int cont = 0; cont < ordemMatriz; cont++){
         free(matrizBomba[cont]);

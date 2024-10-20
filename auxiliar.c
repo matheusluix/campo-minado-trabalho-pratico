@@ -181,7 +181,7 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
                 printf("Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) \n");
             }
 
-        } while (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 1 && matrizVisivel[coordenadaLinha][coordenadaColuna] == 'A');
+        } while (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 0 || matrizVisivel[coordenadaLinha][coordenadaColuna] != 'X');
 
        matrizVisivel[coordenadaLinha][coordenadaColuna] = '0' + quantidadeBombasVizinhanca(coordenadaLinha, coordenadaColuna, ordemMatriz, matrizBomba);
 
