@@ -29,6 +29,15 @@ void perguntaDificuldade(int *ordemMatriz, int *quantidadeMinas){
         break;
     }
 }
+
+//essa funcao inicializa a minha matriz de char com 'X'
+void inicializaMatrizVisivel(int ordemMatriz, char **matrizVisivel) {
+    for (int contL = 0; contL < ordemMatriz; contL++) {
+        for (int contC = 0; contC < ordemMatriz; contC++) {
+            matrizVisivel[contL][contC] = 'X'; // Inicializa todas as células como se estivessem fechadas
+        }
+    }
+}
 //função que retorna a matriz, mas com um numero N de bombas
 void sorteiaMinas(int tamanhoCampo, int quantidadeBombas, int **matrizCampo){
 
@@ -114,90 +123,108 @@ int quantidadeBombasVizinhanca(int linha, int coluna, int ordemMatriz, int **mat
     return totalBombasVizinhaca;
 }
 
-//funcao que conta as bombas vizinhas
-void contarBombasVizinhas(int ordemMatriz, int **matrizBombas, char **matrizVisivel){
-    for(int contL = 0; contL < ordemMatriz; contL++){
-        for(int contC = 0; contC < ordemMatriz; contC++){
-            if(matrizBombas[contL][contC] != -1){
-                int bombasVizinhas = quantidadeBombasVizinhanca(contL, contC, ordemMatriz, matrizBombas);
-                matrizVisivel[contL][contC] = '0' + bombasVizinhas;
-            }
-        }
-    }
-}
-
 //essa função é responsável por mostrar a matriz que será impressa no terminal
-void imprimeMatrizVisivel(int ordemMatriz, char **matrizVisivel, int **matrizBombas) {
-    printf("    ");
+void imprimeMatrizVisivel(int ordemMatriz, char **matrizVisivel) {
+
+    printf("   ");
     for (int cont = 1; cont <= ordemMatriz; cont++) {
-        printf("%02d ", cont);
+        printf("%02d |", cont);
     }
-    printf("\n    ");
+    printf("\n   ");
+
     for (int cont = 0; cont < ordemMatriz; cont++) {
-        printf("---");
+        printf("----");
     }
     printf("\n");
 
     for (int contL = 0; contL < ordemMatriz; contL++) {
-        printf("%02d |", contL + 1); // Índice da linha
+        printf("%02d| ", contL + 1); // Índice da linha
         for (int contC = 0; contC < ordemMatriz; contC++) {
-            if (matrizVisivel[contL][contC] == 'A') {
-                if (matrizBombas[contL][contC] == -1) {
-                    printf(" * ");
-                } else {
-                    printf(" %c ", matrizVisivel[contL][contC]);
-                }
-            } else {
-                printf(" X ");
-            }
+                printf("%c | ", matrizVisivel[contL][contC]);
         }
         printf("\n");
     }
 }
 
-//essa funcao inicializa a minha matriz de char com 'X'
-void inicializaMatrizVisivel(int ordemMatriz, char **matrizVisivel) {
-    for (int contL = 0; contL < ordemMatriz; contL++) {
-        for (int contC = 0; contC < ordemMatriz; contC++) {
-            matrizVisivel[contL][contC] = 'X'; // Inicializa todas as células como se estivessem fechadas
+//essa funcao eh responsavel por verificar se o user ganhou ou perdeu
+int verificaVitoriaDerrota(int ordemMatriz, char **matrizVisivel, int **matrizBomba){
+    int quantidadeX = 0; //quantidade de "nao bombas" que ainda nao foram selecionadas
+
+    for(int contLinha = 0; contLinha < ordemMatriz; contLinha++){
+        for(int contColuna = 0; contColuna < ordemMatriz; contColuna++){
+            if(matrizVisivel[contLinha][contLinha] == 'X' && matrizBomba[contLinha][contColuna] == 0){
+                quantidadeX++;
+            }
         }
     }
-}
-//esta funcao vai mostrar quantas bombas tem ao redor da minha bomba atual
-void mostraQuantasBombasTemAoRedor(int ordemMatriz, int linha, int coluna, char ** matrizVisivel, int **matrizBomba){
-    if (verificaCoordenadaValida(ordemMatriz, linha, coluna) && matrizVisivel[linha][coluna] == 'X') {
-        matrizVisivel[linha][coluna] = quantidadeBombasVizinhanca(linha, coluna, ordemMatriz, matrizBomba) + '0';
-    }
+    return quantidadeX;
 }
 
 //este metodo é responsavel por escanerar as coordenadas durante o jogo
-void jogar(int ordemMatriz, char **matrizVisivel){
+void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
     int coordenadaLinha, coordenadaColuna;
 
-    do{
-        printf("Digite a coordenada da linha e em seguida a coordenada da coluna: \n");
-        scanf("%d %d", &coordenadaLinha, &coordenadaColuna);
-        coordenadaLinha--;
-        coordenadaColuna--;
-        if(verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 0){
-            printf("Coordenada invalida, as coordenadas precisam estar entre o intervalo de 1 a %d ;) \n", ordemMatriz);
-        }
-        else if (matrizVisivel[coordenadaLinha][coordenadaColuna] != 'X') { //verifica se a coordenada é diferente de 'X'
-            printf("Essa coordenada já foi usada! Tente outra ;) \n");
-        }
-    } while (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 0 || matrizVisivel[coordenadaLinha][coordenadaColuna] != 'X'); //verifica se a coordenada é diferente de 'X'
-    
+    do {
+        imprimeMatrizVisivel(ordemMatriz, matrizVisivel);
+
+        do {
+            printf("Digite a coordenada da linha e em seguida a coordenada da coluna: \n");
+            scanf("%d %d", &coordenadaLinha, &coordenadaColuna);
+            coordenadaLinha--;  // Ajusta para o índice da matriz bomba
+            coordenadaColuna--; // Ajusta para o índice da matriz bomba
+
+            if (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 0) {
+                printf("Coordenada invalida! As coordenadas precisam estar entre o intervalo de 1 a %d ;) \n", ordemMatriz);
+            }
+
+            if (matrizVisivel[coordenadaLinha][coordenadaColuna] != 'X') { // Se a coordenada já foi revelada
+                printf("Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) \n");
+            }
+
+        } while (verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna) == 1 && matrizVisivel[coordenadaLinha][coordenadaColuna] == 'A');
+
+        matrizVisivel[coordenadaLinha][coordenadaColuna] = '0' + quantidadeBombasVizinhanca(coordenadaLinha, coordenadaColuna, ordemMatriz, matrizBomba);
+
+    } while (verificaVitoriaDerrota(ordemMatriz, matrizVisivel, matrizBomba) != 0 && matrizBomba[coordenadaLinha][coordenadaColuna] == 0);
+
+    if(matrizBomba[coordenadaLinha][coordenadaColuna] == 0){
+        printf("parabens, vc eh fera\n");
+    }
+    else{
+        printf("game over");
+    }
 }
 
+void imprimeMatrizBomba(int ordemMatriz, int **matrizBomba){
+    printf("Aqui esta a matriz original, -1 representa as bombas! \n");
 
+    printf("   ");
+    for (int cont = 1; cont <= ordemMatriz; cont++) {
+        printf("%02d |", cont);
+    }
+    printf("\n   ");
+
+    for (int cont = 0; cont < ordemMatriz; cont++) {
+        printf("----");
+    }
+    printf("\n");
+
+    for (int contL = 0; contL < ordemMatriz; contL++) {
+        printf("%02d| ", contL + 1); // Índice da linha
+        for (int contC = 0; contC < ordemMatriz; contC++) {
+                printf("%c | ", matrizBomba[contL][contC]);
+        }
+        printf("\n");
+    }
+}
 
 int main(void){
     int ordemMatriz, quantidadeMinas;
     perguntaDificuldade(&ordemMatriz, &quantidadeMinas);
 
-    int **matrizBombas = (int**) calloc(ordemMatriz, sizeof(int*));
+    int **matrizBomba = (int**) calloc(ordemMatriz, sizeof(int*));
     char **matrizVisivel = (char**) malloc(ordemMatriz * sizeof(char*));
-    if(matrizBombas == NULL){
+    if(matrizBomba == NULL){
         printf("Memoria insuficiente :( \n)");
         exit(1);
     }
@@ -207,21 +234,20 @@ int main(void){
     }
 
     for(int cont = 0; cont < ordemMatriz; cont++){
-        matrizBombas[cont] = (int*) calloc(ordemMatriz, sizeof(int));
+        matrizBomba[cont] = (int*) calloc(ordemMatriz, sizeof(int));
         matrizVisivel[cont] = (char*) malloc(ordemMatriz * sizeof(char));
     }
 
-    sorteiaMinas(ordemMatriz, quantidadeMinas, matrizBombas);
+    sorteiaMinas(ordemMatriz, quantidadeMinas, matrizBomba);
     inicializaMatrizVisivel(ordemMatriz, matrizVisivel);
-    contarBombasVizinhas(ordemMatriz, matrizBombas, matrizVisivel);
 
-    imprimeMatrizVisivel(ordemMatriz, matrizVisivel, matrizBombas);
+    jogar(ordemMatriz, matrizVisivel, matrizBomba);
 
     for(int cont = 0; cont < ordemMatriz; cont++){
-        free(matrizBombas[cont]);
+        free(matrizBomba[cont]);
         free(matrizVisivel[cont]);
     }
-    free(matrizBombas);
+    free(matrizBomba);
     free(matrizVisivel);
 
     return 0;
