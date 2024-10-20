@@ -1,0 +1,94 @@
+Documentação do Jogo Campo Minado
+
+Descrição:
+Este é um jogo de Campo Minado desenvolvido em C, onde o jogador deve revelar células em um campo minado. O objetivo do jogo é evitar as minas enquanto tenta revelar todas as células que não contêm minas. O jogador pode escolher entre três níveis de dificuldade: fácil, médio e difícil, que determinam o tamanho do campo e a quantidade de minas.
+
+Funções:
+
+1. void perguntaDificuldade(int *ordemMatriz, int *quantidadeMinas)
+   - Descrição: Pergunta ao jogador sobre a dificuldade desejada e define o tamanho do campo e a quantidade de minas de acordo com a seleção.
+   - Parâmetros:
+     - int ordemMatriz: Ponteiro para a variável que armazena o tamanho do campo (número de linhas/colunas).
+     - int quantidadeMinas: Ponteiro para a variável que armazena a quantidade de minas.
+
+2. void alocaMatrizes(int ordemMatriz, int **matrizBomba, char **matrizVisivel)
+   -Descrição: Aloca memória para as matrizes do jogo.
+   - Parâmetros:
+     - int ordemMatriz: Tamanho do campo.
+     - int **matrizBomba: Matriz que contém a posição das minas.
+     - char **matrizVisivel: Matriz que representa o estado visível do campo.
+
+3. void inicializaMatrizVisivel(int ordemMatriz, char **matrizVisivel)
+   -Descrição: Inicializa a matriz visível, preenchendo todas as células com 'X', que representa células fechadas.
+   -Parâmetros:
+     - int ordemMatriz: Tamanho do campo.
+     - char **matrizVisivel: Matriz que será inicializada.
+
+4. void sorteiaMinas(int tamanhoCampo, int quantidadeBombas, int **matrizCampo)
+   - Descrição: Sorteia e coloca a quantidade especificada de minas na matriz do campo.
+   - Parâmetros:
+     - int tamanhoCampo: Tamanho do campo.
+     - int quantidadeBombas: Quantidade de minas a serem sorteadas.
+     - int **matrizCampo: Matriz que contém a posição das minas.
+
+5. int verificaCoordenadaValida(int ordemMatriz, int linha, int coluna)
+   - Descrição: Verifica se as coordenadas fornecidas estão dentro dos limites da matriz.
+   - Parâmetros:
+     - int ordemMatriz: Tamanho do campo.
+     - int linha: Linha a ser verificada.
+     - int coluna: Coluna a ser verificada.
+   - Retorno: Retorna 1 se a coordenada for válida, caso contrário, retorna 0.
+
+6. int quantidadeBombasVizinhanca(int linha, int coluna, int ordemMatriz, int **matrizBomba)
+   - Descrição: Conta o número de minas nas células vizinhas da célula especificada.
+   - Parâmetros:
+     - int linha: Linha da célula a ser verificada.
+     - int coluna: Coluna da célula a ser verificada.
+     - int ordemMatriz: Tamanho do campo.
+     - int **matrizBomba: Matriz que contém a posição das minas.
+   - **Retorno**: Retorna a quantidade de bombas nas células vizinhas.
+
+7. void imprimeMatrizVisivel(int ordemMatriz, char **matrizVisivel)
+   - Descrição: Imprime a matriz visível, mostrando o estado atual do jogo para o jogador.
+   - Parâmetros:
+     - int ordemMatriz: Tamanho do campo.
+     - char **matrizVisivel: Matriz que representa o estado visível do campo.
+
+8. int verificaVitoriaDerrota(int ordemMatriz, char **matrizVisivel, int **matrizBomba)
+   - Descrição: Verifica se o jogador ganhou ou perdeu, retornando a quantidade de células que ainda precisam ser reveladas.
+   - Parâmetros:
+     - int ordemMatriz: Tamanho do campo.
+     - char **matrizVisivel: Matriz que representa o estado visível do campo.
+     - int **matrizBomba: Matriz que contém a posição das minas.
+   - Retorno: Retorna a quantidade de células que ainda precisam ser reveladas.
+
+9. void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba)
+   - Descrição: Controla o fluxo do jogo, permitindo que o jogador escolha coordenadas e revele as células correspondentes.
+   - Parâmetros:
+     - int ordemMatriz: Tamanho do campo.
+     - char **matrizVisivel: Matriz que representa o estado visível do campo.
+     - int **matrizBomba: Matriz que contém a posição das minas.
+
+10. void imprimeMatrizBomba(int ordemMatriz, int **matrizBomba)
+    - Descrição: Imprime a matriz original do campo de minas após o término do jogo, mostrando onde estavam as minas.
+    - Parâmetros:
+      - int ordemMatriz: Tamanho do campo.
+      - int **matrizBomba`: Matriz que contém a posição das minas.
+
+11. void liberaMemoria(int ordemMatriz, int **matrizBomba, char **matrizVisivel)
+    - Descrição: Libera a memória alocada para as matrizes do jogo.
+    - Parâmetros:
+      - int ordemMatriz: Tamanho do campo.
+      - int **matrizBomba: Matriz que contém a posição das minas.
+      - char **matrizVisivel: Matriz que representa o estado visível do campo.
+
+Função Principal:
+
+- int main(void)
+  - Descrição: Função principal que executa o jogo. Inicializa as matrizes, pergunta a dificuldade, sorteia as minas, e inicia o jogo chamando a função `jogar()`. Após o término do jogo, imprime a matriz original e libera a memória alocada.
+
+Considerações Finais
+Este jogo utiliza alocação dinâmica de memória para as matrizes que são vetores de ponteiros, garantindo que o jogo possa ser executado em campos de diferentes tamanhos. É importante lembrar de liberar a memória alocada após o uso para evitar vazamentos de memória.
+
+GitHub: https://github.com/matheusluix/campo-minado-trabalho-pratico/tree/master
+linde
