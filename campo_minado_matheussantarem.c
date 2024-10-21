@@ -277,7 +277,7 @@ int main(void){
 
     int **matrizBomba = (int**) calloc(ordemMatriz, sizeof(int*));
     char **matrizVisivel = (char**) malloc(ordemMatriz * sizeof(char*));
-    
+    alocaMatrizes(ordemMatriz, matrizBomba, matrizVisivel);
     sorteiaMinas(ordemMatriz, quantidadeMinas, matrizBomba);
     inicializaMatrizVisivel(ordemMatriz, matrizVisivel);
 
