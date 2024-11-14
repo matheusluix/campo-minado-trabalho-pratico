@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "log.h"
 
 /*essa funçao é responsável por perguntar ao jogador a dificuldade que ele quer escolher, a partir da dificuldade escolhida será determinada o tamanho do campo
 e a quantidade de minas que terá no campo*/
-void perguntaDificuldade(int *ordemMatriz, int *quantidadeMinas){
+void perguntaDificuldade(int *ordemMatriz, int *quantidadeMinas) {
 
     printf("Ola caro jogador, selecione uma dificuldade para iniciarmos o jogo!\n");
     printf("Aperte '1' para facil, '2' para medio ou '3' para dificil:\n");
@@ -59,7 +60,7 @@ void inicializaMatrizVisivel(int ordemMatriz, char **matrizVisivel) {
     }
 }
 //função que retorna a matrizBomba com um número 'N' de bombas
-void sorteiaMinas(int ordemMatriz, int quantidadeBombas, int **matrizCampo){
+void sorteiaMinas(int ordemMatriz, int quantidadeBombas, int **matrizCampo) {
 
     int coordenadaX, coordenadaY;
 
@@ -80,7 +81,7 @@ void sorteiaMinas(int ordemMatriz, int quantidadeBombas, int **matrizCampo){
 }
 
 //funcao que verifica a validez de uma coordenada, se ela está, ou não, dentro dos limites da matriz
-int verificaCoordenadaValida(int ordemMatriz, int linha, int coluna){
+int verificaCoordenadaValida(int ordemMatriz, int linha, int coluna) {
     int ehValida;
 
     // Verifica se a coordenada (linha, coluna) está dentro dos limites da matriz
@@ -174,7 +175,7 @@ void imprimeMatrizVisivel(int ordemMatriz, char **matrizVisivel) {
 }
 
 //essa funcao eh responsavel por verificar se o user ganhou ou perdeu
-int verificaVitoriaDerrota(int ordemMatriz, char **matrizVisivel, int **matrizBomba){
+int verificaVitoriaDerrota(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
     int quantidadeX = 0; // quantidade de quantas coordenadas não reveladas ainda restam que não são bombas
 
     for(int contLinha = 0; contLinha < ordemMatriz; contLinha++){
@@ -191,8 +192,8 @@ int verificaVitoriaDerrota(int ordemMatriz, char **matrizVisivel, int **matrizBo
 //este metodo é responsável por mostrar a quantidade de bombas que há na vizinhaça de cada coordenada
 void expandirCoordenada(int linha, int coluna, int ordemMatriz, char **matrizVisivel, int **matrizBomba) { 
 
-    /*este "if" mais externo verifica se a coordenada atual é valida,ou seja, se está dentro da minha matriz, pois em muitos casos do algoritimo "flood fill"
-    a coordenada atual será inválida*/
+    /*este "if" mais externo verifica se a coordenada atual é valida,ou seja, se está dentro da minha matriz, pois em muitos casos
+    do algoritimo "flood fill" a coordenada atual será inválida*/
     if(verificaCoordenadaValida(ordemMatriz, linha, coluna) && matrizVisivel[linha][coluna] == 'X'){
         matrizVisivel[linha][coluna] = '0' + quantidadeBombasVizinhanca(linha, coluna, ordemMatriz, matrizBomba);
         if(quantidadeBombasVizinhanca(linha, coluna, ordemMatriz, matrizBomba) == 0){ //se a quantidade de bombas na vizinhaça for igual a 0, então será implementado algoritimo "o flood fill"
@@ -214,6 +215,8 @@ void expandirCoordenada(int linha, int coluna, int ordemMatriz, char **matrizVis
 void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
     int coordenadaLinha, coordenadaColuna;
 
+    FILE *log = criarLog();
+    log = abrirLog();
     do {
         imprimeMatrizVisivel(ordemMatriz, matrizVisivel); // Exibe a matriz visível ao jogador para que ele possa escolher onde quer jogar
 
@@ -223,6 +226,9 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
         do {
             printf("Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
             scanf("%d,%d", &coordenadaLinha, &coordenadaColuna);
+            
+            registraCoordenadasMatrizes(ordemMatriz, coordenadaLinha, coordenadaColuna, matrizVisivel);
+
             coordenadaLinha--;  // Ajusta para o índice da matriz bomba
             coordenadaColuna--; // Ajusta para o índice da matriz bomba
 
@@ -255,10 +261,14 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
     else{
         printf("game over\n");
     }
+
+    fclose(log);
 }
 
 /*essa função irá imprimir a matriz original, imprimindo -1 para a coordenada que tem bomba e a quantidade de bombas na vizinhança nas coordenadas que não são bomba*/
 void imprimeMatrizBomba(int ordemMatriz, int **matrizBomba){
+
+
     printf("Aqui esta a matriz original, -1 representa as bombas! \n");
 
     // Imprime o cabeçalho das colunas (números de 1 a ordemMatriz)
@@ -287,6 +297,12 @@ void imprimeMatrizBomba(int ordemMatriz, int **matrizBomba){
         }
         printf("\n");
     }
+
+    FILE *arq = abrirLog();
+
+    registraMatrizBomba(ordemMatriz, matrizBomba);
+
+    fclose(arq);
 }
 
 void liberaMemoria(int ordemMatriz, int **matrizBomba, char **matrizVisivel) {

@@ -1,5 +1,6 @@
 #include "matriz.h"
-int main(void){
+
+int main(void) {
     int ordemMatriz, quantidadeMinas;
     perguntaDificuldade(&ordemMatriz, &quantidadeMinas);
 

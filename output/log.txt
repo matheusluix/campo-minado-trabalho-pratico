@@ -1,0 +1,61 @@
+Data e hora do início do jogo: Thu Nov 14 17:16:50 2024
+
+   01 |02 |03 |04 |05 |06 |07 |08 |09 |10 |
+   ----------------------------------------
+01| X | X | X | X | X | X | X | X | X | X | 
+02| X | X | X | X | X | X | X | X | X | X | 
+03| X | X | X | X | X | X | X | X | X | X | 
+04| X | X | X | X | X | X | X | X | X | X | 
+05| X | X | X | X | X | X | X | X | X | X | 
+06| X | X | X | X | X | X | X | X | X | X | 
+07| X | X | X | X | X | X | X | X | X | X | 
+08| X | X | X | X | X | X | X | X | X | X | 
+09| X | X | X | X | X | X | X | X | X | X | 
+10| X | X | X | X | X | X | X | X | X | X | 
+Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. 
+2,2
+   01 |02 |03 |04 |05 |06 |07 |08 |09 |10 |
+   ----------------------------------------
+01| X | X | X | X | X | X | X | X | X | X | 
+02| X | 1 | X | X | X | X | X | X | X | X | 
+03| X | X | X | X | X | X | X | X | X | X | 
+04| X | X | X | X | X | X | X | X | X | X | 
+05| X | X | X | X | X | X | X | X | X | X | 
+06| X | X | X | X | X | X | X | X | X | X | 
+07| X | X | X | X | X | X | X | X | X | X | 
+08| X | X | X | X | X | X | X | X | X | X | 
+09| X | X | X | X | X | X | X | X | X | X | 
+10| X | X | X | X | X | X | X | X | X | X | 
+Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. 
+Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) 
+
+   01 |02 |03 |04 |05 |06 |07 |08 |09 |10 |
+   ----------------------------------------
+01| 0 | 1 | X | X | X | X | X | X | X | X | 
+02| 0 | 1 | 1 | 1 | 1 | 2 | X | X | X | X | 
+03| 0 | 0 | 0 | 0 | 0 | 1 | X | X | X | X | 
+04| 1 | 2 | 2 | 1 | 1 | 2 | X | X | X | X | 
+05| X | X | X | X | X | X | X | X | X | X | 
+06| X | X | X | X | X | X | X | X | X | X | 
+07| X | X | X | X | X | X | X | X | X | X | 
+08| X | X | X | X | X | X | X | X | X | X | 
+09| X | X | X | X | X | X | X | X | X | X | 
+10| X | X | X | X | X | X | X | X | X | X | 
+Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. 
+Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) 
+
+   01 |02 |03 |04 |05 |06 |07 |08 |09 |10 |
+   ----------------------------------------
+01| 0 | 1 | X | X | X | X | X | X | X | X | 
+02| 0 | 1 | 1 | 1 | 1 | 2 | X | X | X | X | 
+03| 0 | 0 | 0 | 0 | 0 | 1 | X | X | X | X | 
+04| 1 | 2 | 2 | 1 | 1 | 2 | X | X | X | X | 
+05| X | X | X | X | X | X | X | X | X | X | 
+06| X | X | X | X | X | X | X | X | X | X | 
+07| X | X | X | X | X | X | X | X | X | X | 
+08| X | X | X | X | X | X | X | X | X | X | 
+09| X | X | X | X | X | X | X | X | X | X | 
+10| X | X | X | X | X | X | X | X | X | X | 
+Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. 
+Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) 
+
