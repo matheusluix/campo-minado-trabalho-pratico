@@ -225,6 +225,7 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
 
         do {
             printf("Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
+            
             scanf("%d,%d", &coordenadaLinha, &coordenadaColuna);
             
             registraCoordenadasMatrizes(ordemMatriz, coordenadaLinha, coordenadaColuna, matrizVisivel);
@@ -235,7 +236,6 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
             // Verifica se as coordenadas estão dentro dos limites da matriz
             if (!verificaCoordenadaValida(ordemMatriz, coordenadaLinha, coordenadaColuna)) {
                 printf("Coordenada invalida! As coordenadas precisam estar entre o intervalo de 1 a %d ;) \n", ordemMatriz);
-
             }
              // Verifica se a coordenada já foi revelada anteriormente
             else if (matrizVisivel[coordenadaLinha][coordenadaColuna] != 'X') {
@@ -257,9 +257,11 @@ void jogar(int ordemMatriz, char **matrizVisivel, int **matrizBomba) {
     // Verifica se o jogador venceu ou perdeu
     if(matrizBomba[coordenadaLinha][coordenadaColuna] == 0){
         printf("parabens, vc eh fera\n");
+        fprintf(log, "parabens, vc eh fera\n");
     }
     else{
         printf("game over\n");
+        fprintf(log, "game over\n");
     }
 
     fclose(log);
@@ -289,7 +291,7 @@ void imprimeMatrizBomba(int ordemMatriz, int **matrizBomba){
         for (int contC = 0; contC < ordemMatriz; contC++) {
             if(matrizBomba[contL][contC] != -1){ //se não for uma bomba
                 matrizBomba[contL][contC] = quantidadeBombasVizinhanca(contL, contC, ordemMatriz, matrizBomba);
-                printf("%d  |", matrizBomba[contL][contC]);
+                printf(" %d |", matrizBomba[contL][contC]);
             }
             else{ //se for uma bomba
                 printf("-1 |"); // Imprime 1 para representar que é uma bomba

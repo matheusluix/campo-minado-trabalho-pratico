@@ -54,15 +54,17 @@ void registraCoordenadasMatrizes(int ordemMatriz, int linha, int coluna, char **
     fprintf(log, "Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
 
     if(linha < 1 || linha > ordemMatriz || coluna < 1 || coluna > ordemMatriz) {
-        fprintf(log, "%d,%d", linha, coluna);
+        fprintf(log, "%d,%d\n", linha, coluna);
         fprintf(log, "Coordenada invalida! As coordenadas precisam estar entre o intervalo de 1 a %d ;) \n", ordemMatriz);
+        fprintf(log, "Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
     }
     else if (matrizVisivel[linha][coluna] != 'X') {
-        fprintf(log, "%d,%d", linha, coluna);
+        fprintf(log, "%d,%d\n", linha, coluna);
         fprintf(log, "Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) \n");
+        fprintf(log, "Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
     }
     else{
-        fprintf(log, "%d,%d", linha, coluna);
+        fprintf(log, "%d,%d\n", linha, coluna);
     }
 
     fprintf(log, "\n");
@@ -94,7 +96,7 @@ void registraMatrizBomba(int ordemMatriz, int **matrizBomba) {
         for (int contC = 0; contC < ordemMatriz; contC++) {
             if(matrizBomba[contL][contC] != -1){ //se não for uma bomba
                 //matrizBomba[contL][contC] = quantidadeBombasVizinhanca(contL, contC, ordemMatriz, matrizBomba);
-                fprintf(arq, "%d  |", matrizBomba[contL][contC]);
+                fprintf(arq, " %d |", matrizBomba[contL][contC]);
             }
             else{ //se for uma bomba
                 fprintf(arq, "-1 |"); // Imprime 1 para representar que é uma bomba
