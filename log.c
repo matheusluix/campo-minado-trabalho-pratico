@@ -27,48 +27,55 @@ FILE* abrirLog() {
     return arq;
 }
 
-void registraCoordenadasMatrizes(int ordemMatriz, int linha, int coluna, char **matrizVisivel) {
-
-    FILE *log = abrirLog();
-
+void imprimirMatriz(FILE *log, int ordemMatriz, char **matrizVisivel) {
     fprintf(log, "   ");
     for (int cont = 1; cont <= ordemMatriz; cont++) {
-        fprintf(log, "%02d |", cont); // Exibe o número da coluna com dois dígitos, ex: 01
+        fprintf(log, "%02d |", cont);
     }
     fprintf(log, "\n   ");
 
-    // Imprime uma linha de separação entre o cabeçalho e a matriz
     for (int cont = 0; cont < ordemMatriz; cont++) {
         fprintf(log, "----");
     }
     fprintf(log, "\n");
 
     for (int contL = 0; contL < ordemMatriz; contL++) {
-        fprintf(log, "%02d| ", contL + 1); // Exibe o número da linha com dois dígitos, ex: 02
+        fprintf(log, "%02d| ", contL + 1);
         for (int contC = 0; contC < ordemMatriz; contC++) {
-                fprintf(log, "%c | ", matrizVisivel[contL][contC]); // Exibe o conteúdo de cada célula da matriz, 'X' para célula oculta, '1' para células reveladas com uma bomba na vizinhança
+            fprintf(log, "%c | ", matrizVisivel[contL][contC]);
         }
         fprintf(log, "\n");
     }
+}
+
+void registrarCoordenadaInvalida(FILE *log, int linha, int coluna, int ordemMatriz) {
+    fprintf(log, "%d,%d\n", linha, coluna);
+    fprintf(log, "Coordenada invalida! As coordenadas precisam estar entre o intervalo de 1 a %d ;) \n", ordemMatriz);
+}
+
+void registrarCoordenadaJaDigitada(FILE *log, int linha, int coluna) {
+    fprintf(log, "%d,%d\n", linha, coluna);
+    fprintf(log, "Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) \n");
+}
+
+void registraCoordenadasMatrizes(int ordemMatriz, int linha, int coluna, char **matrizVisivel) {
+    FILE *log = abrirLog();
+
+    imprimirMatriz(log, ordemMatriz, matrizVisivel);
 
     fprintf(log, "Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
 
-    if(linha < 1 || linha > ordemMatriz || coluna < 1 || coluna > ordemMatriz) {
-        fprintf(log, "%d,%d\n", linha, coluna);
-        fprintf(log, "Coordenada invalida! As coordenadas precisam estar entre o intervalo de 1 a %d ;) \n", ordemMatriz);
-        fprintf(log, "Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
-    }
-    else if (matrizVisivel[linha][coluna] != 'X') {
-        fprintf(log, "%d,%d\n", linha, coluna);
-        fprintf(log, "Essa coordenada ja foi digitada! Tente outro par de coordenadas ;) \n");
-        fprintf(log, "Digite a coordenada da linha e em seguida a coordenada da coluna, separadas por virgula, exemplo: 2,7. \n");
-    }
-    else{
+    if (linha < 1 || linha > ordemMatriz || coluna < 1 || coluna > ordemMatriz) {
+        registrarCoordenadaInvalida(log, linha, coluna, ordemMatriz);
+    } 
+    else if (matrizVisivel[linha - 1][coluna - 1] != 'X') {
+        registrarCoordenadaJaDigitada(log, linha, coluna);
+    } 
+    else {
         fprintf(log, "%d,%d\n", linha, coluna);
     }
 
     fprintf(log, "\n");
-
     fclose(log);
 }
 
