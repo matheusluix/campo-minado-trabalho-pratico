@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include "log.c"
-
 
 /* Essa função cria o arquivo de log e o abre para escrita. Retorna um ponteiro para o arquivo aberto. */
 FILE* criarLog();

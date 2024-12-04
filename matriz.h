@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include "matriz.c"
-
 /* 
    Solicita a escolha de dificuldade do jogador. Com base na dificuldade selecionada, define o tamanho do campo de jogo 
    e a quantidade de bombas. 'ordemMatriz' representa o número de linhas e colunas das matrizes, enquanto 'quantidadeMinas' 

@@ -1,7 +1,9 @@
+#include "matriz.h"
+#include "log.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "log.h"
+
 
 /*Essa funçao é responsável por perguntar ao jogador a dificuldade que ele quer escolher, a partir da dificuldade escolhida será determinada o tamanho do campo
 e a quantidade de minas que terá no campo.*/
